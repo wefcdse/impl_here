@@ -7,7 +7,7 @@ description = "A macro that helps impl method for foreign types"
 repository = "https://github.com/wefcdse/impl_here"
 readme = "readme.md"
 license = "MIT OR Apache-2.0"
-keywords = ["utils", "macro", "impl", "foreign type"]
+keywords = ["utils", "macro", "impl", "foreign", "type"]
 [lib]
 proc-macro = true
 
