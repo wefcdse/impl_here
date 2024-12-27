@@ -91,9 +91,9 @@ pub fn expend(args: TokenStream, input: ItemImpl) -> Result<TokenStream, String>
         // const _:() = {
         //     stringify!(#(#trait_fns)*);
         // };
-        const _:() = {
-            ::core::stringify!(#trait_impl);
-        };
+        // const _:() = {
+        //     ::core::stringify!(#trait_impl);
+        // };
         // #vis trait #trait_name{
         //     #(#trait_fns)*
         // }
