@@ -68,14 +68,14 @@ pub fn expend(args: TokenStream, input: ItemImpl) -> Result<TokenStream, String>
         generics: Generics::default(),
         colon_token: None,
         supertraits: Punctuated::new(),
-        brace_token: input.brace_token.clone(),
+        brace_token: input.brace_token,
         items: trait_fns.clone(),
     };
     let trait_impl = ItemImpl {
         attrs: Vec::new(),
         defaultness: None,
         unsafety: None,
-        impl_token: input.impl_token.clone(),
+        impl_token: input.impl_token,
         generics: generics.clone(),
         trait_: Some((
             None,
@@ -83,7 +83,7 @@ pub fn expend(args: TokenStream, input: ItemImpl) -> Result<TokenStream, String>
             syn::parse2(quote! {for}).unwrap(),
         )),
         self_ty: target.clone(),
-        brace_token: input.brace_token.clone(),
+        brace_token: input.brace_token,
         items: impl_items.clone(),
     };
 

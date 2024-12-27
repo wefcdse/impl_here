@@ -1,4 +1,31 @@
 fn main() {
+    use impl_here::impl_here;
+
+    #[impl_here(ArrayTrait)]
+    impl<T, const L: usize> [T; L] {
+        const TOTAL_SIZE: usize = size_of::<Self>();
+        fn length(&self) -> usize {
+            L
+        }
+    }
+
+    assert_eq!([0.3; 125].length(), 125);
+    assert_eq!(<[String; 2024]>::TOTAL_SIZE, 2024 * 24);
+
+    #[impl_here(I32Square)]
+    impl i32 {
+        pub fn square(self) -> i32 {
+            self * self
+        }
+    }
+    // I32Square is public because fn square is public
+
+    assert_eq!(13.square(), 13 * 13);
+
+    let mut a = ();
+    let a = &mut a;
+    a.dbga();
+    a.dbga();
     dbg!(14.1.square());
     dbg!(1.1.add_t(11u8));
     13.dbg();
@@ -62,4 +89,10 @@ struct AA;
 impl AA {
     // type A = f64;
     pub const A: usize = 2;
+}
+#[impl_here(RefUnit)]
+impl &mut () {
+    pub fn dbga(self) {
+        println!("&()");
+    }
 }
