@@ -1,0 +1,14 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "cargo",
+			"command": "expand",
+			"label": "cargo: expand",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		}
+	]
+}
