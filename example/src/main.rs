@@ -3,6 +3,9 @@ fn main() {
     dbg!(1.1.add_t(11u8));
     13.dbg();
     String::new().dbg();
+    String::AAA.dbg();
+    <[String; usize::MAX]>::LENGTH.dbg();
+    <[String; 22]>::SIZE.dbg();
     // [1.4, 5.1, 323.1].dbg();
     // let aa = [2.2; 3].aa();
 }
@@ -40,13 +43,23 @@ impl<T> T
 where
     T: Debug,
 {
+    const AAA: u32 = 2;
     pub fn dbg(&self) {
         println!("{:?}", self);
+    }
+}
+
+#[impl_here(Array)]
+impl<T, const L: usize> [T; L] {
+    const LENGTH: usize = L;
+    const SIZE: usize = { size_of::<Self>() };
+    fn size(&self) -> usize {
+        Self::SIZE
     }
 }
 
 struct AA;
 impl AA {
     // type A = f64;
-    const A: usize = 2;
+    pub const A: usize = 2;
 }

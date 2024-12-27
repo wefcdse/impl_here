@@ -1,8 +1,8 @@
 use proc_macro2::{TokenStream, TokenTree};
 use quote::quote;
 use syn::{
-    punctuated::Punctuated, Generics, ImplItem, ItemImpl, ItemTrait, TraitItem, TraitItemFn,
-    Visibility,
+    punctuated::Punctuated, Generics, ImplItem, ItemImpl, ItemTrait, TraitItem, TraitItemConst,
+    TraitItemFn, Visibility,
 };
 
 pub fn expend(args: TokenStream, input: ItemImpl) -> Result<TokenStream, String> {
@@ -18,15 +18,24 @@ pub fn expend(args: TokenStream, input: ItemImpl) -> Result<TokenStream, String>
         .iter()
         .cloned()
         .filter_map(|v| match v {
-            ImplItem::Fn(v) => Some(TraitItemFn {
+            ImplItem::Fn(v) => Some(TraitItem::Fn(TraitItemFn {
                 attrs: v.attrs,
                 sig: v.sig,
                 default: None,
                 semi_token: None,
-            }),
+            })),
+            ImplItem::Const(v) => Some(TraitItem::Const(TraitItemConst {
+                attrs: v.attrs,
+                const_token: v.const_token,
+                ident: v.ident,
+                generics: v.generics,
+                colon_token: v.colon_token,
+                ty: v.ty,
+                default: None,
+                semi_token: v.semi_token,
+            })),
             _ => None,
         })
-        .map(|e| TraitItem::Fn(e))
         .collect::<Vec<_>>();
     let mut vis = Visibility::Inherited;
 
@@ -38,6 +47,11 @@ pub fn expend(args: TokenStream, input: ItemImpl) -> Result<TokenStream, String>
                 vis = high_vis(vis.clone(), v.vis);
                 v.vis = Visibility::Inherited;
                 Some(ImplItem::Fn(v))
+            }
+            ImplItem::Const(mut v) => {
+                vis = high_vis(vis.clone(), v.vis);
+                v.vis = Visibility::Inherited;
+                Some(ImplItem::Const(v))
             }
             _ => None,
         })
