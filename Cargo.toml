@@ -2,7 +2,12 @@
 name = "impl_here"
 version = "0.1.0"
 edition = "2021"
-
+authors = ["wefcdse"]
+description = "A macro that helps impl method for foreign types"
+repository = "https://github.com/wefcdse/impl_here"
+readme = "readme.md"
+license = "MIT OR Apache-2.0"
+keywords = ["utils", "macro", "impl", "foreign type"]
 [lib]
 proc-macro = true
 
@@ -10,4 +15,3 @@ proc-macro = true
 syn = { version = "2.0.92", features = ["full"] }
 proc-macro2 = { version = "1.0.86" }
 quote = { version = "1.0.37" }
-# async-trait = "0.1.77"
